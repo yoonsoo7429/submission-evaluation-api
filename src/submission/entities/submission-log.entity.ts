@@ -30,6 +30,6 @@ export class SubmissionLog {
   @Column({ type: 'text' })
   message: string;
 
-  @CreateDateColumn({ name: 'created_at' })
+  @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
   createdAt: Date;
 }

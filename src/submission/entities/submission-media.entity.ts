@@ -29,6 +29,6 @@ export class SubmissionMedia {
   @Column({ name: 'audio_file_name' })
   audioFileName: string;
 
-  @CreateDateColumn({ name: 'created_at' })
+  @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
   createdAt: Date;
 }

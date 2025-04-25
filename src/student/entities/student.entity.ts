@@ -15,7 +15,7 @@ export class Student {
   @Column({ name: 'student_name' })
   studentName: string;
 
-  @CreateDateColumn({ name: 'create_at' })
+  @CreateDateColumn({ name: 'create_at', type: 'timestamp' })
   createdAt: Date;
 
   @OneToMany(() => Submission, (submission) => submission.student)
