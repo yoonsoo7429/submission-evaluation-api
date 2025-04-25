@@ -5,6 +5,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as Joi from 'joi';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { envVariables } from './common/const/env.const';
+import { StudentModule } from './student/student.module';
+import { SubmissionModule } from './submission/submission.module';
+import { RevisionModule } from './revision/revision.module';
+import { StatsModule } from './stats/stats.module';
 
 @Module({
   imports: [
@@ -42,6 +46,10 @@ import { envVariables } from './common/const/env.const';
       }),
       inject: [ConfigService],
     }),
+    StudentModule,
+    SubmissionModule,
+    RevisionModule,
+    StatsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
