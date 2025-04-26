@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Student } from './entities/student.entity';
 import { Repository } from 'typeorm';
-import { LoginDto } from 'src/auth/dto/login.dto';
 
 @Injectable()
 export class StudentRepository {
@@ -25,9 +24,13 @@ export class StudentRepository {
     return student;
   }
 
-  async findOneStudent(email: string): Promise<Student> {
+  async findStudentByEmail(email: string): Promise<Student> {
     return await this.studentRepository.findOne({
       where: { email },
     });
+  }
+
+  async findStudentByPk(studentId: number): Promise<Student> {
+    return await this.studentRepository.findOne({ where: { studentId } });
   }
 }

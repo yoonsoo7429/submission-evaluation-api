@@ -24,7 +24,7 @@ export class AuthService {
   }
 
   async login(body: LoginDto) {
-    const student = await this.studentRepository.findOneStudent(body.email);
+    const student = await this.studentRepository.findStudentByEmail(body.email);
     if (!student)
       throw new UnauthorizedException('이메일 또는 비밀번호가 잘못되었습니다.');
 
