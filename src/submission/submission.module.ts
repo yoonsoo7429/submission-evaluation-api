@@ -6,6 +6,7 @@ import { Submission } from './entities/submission.entity';
 import { SubmissionMedia } from './entities/submission-media.entity';
 import { SubmissionLog } from './entities/submission-log.entity';
 import { StudentModule } from 'src/student/student.module';
+import { SubmissionRepository } from './submission.repository';
 
 @Module({
   imports: [
@@ -13,6 +14,6 @@ import { StudentModule } from 'src/student/student.module';
     StudentModule,
   ],
   controllers: [SubmissionController],
-  providers: [SubmissionService],
+  providers: [SubmissionService, SubmissionRepository],
 })
 export class SubmissionModule {}

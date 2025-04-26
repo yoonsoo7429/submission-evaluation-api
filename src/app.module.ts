@@ -9,6 +9,8 @@ import { StudentModule } from './student/student.module';
 import { SubmissionModule } from './submission/submission.module';
 import { RevisionModule } from './revision/revision.module';
 import { StatsModule } from './stats/stats.module';
+import { AuthModule } from './auth/auth.module';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -29,6 +31,9 @@ import { StatsModule } from './stats/stats.module';
         AZURE_OPENAI_KEY: Joi.string().required(),
         AZURE_OPENAI_DEPLOYMENT: Joi.string().required(),
         AZURE_OPENAI_API_VERSION: Joi.string().required(),
+        // JWT
+        JWT_SECRET: Joi.string().required(),
+        JWT_EXPIRES_IN: Joi.string().required(),
       }),
     }),
     TypeOrmModule.forRootAsync({
@@ -46,12 +51,13 @@ import { StatsModule } from './stats/stats.module';
       }),
       inject: [ConfigService],
     }),
+    AuthModule,
     StudentModule,
     SubmissionModule,
     RevisionModule,
     StatsModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, JwtService],
 })
 export class AppModule {}

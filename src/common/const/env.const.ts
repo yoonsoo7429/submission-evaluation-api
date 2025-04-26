@@ -15,6 +15,10 @@ const azureOpenAIKey = 'AZURE_OPENAI_KEY';
 const azureOpenAIDeployment = 'AZURE_OPENAI_DEPLOYMENT';
 const azureOpenAIApiVersion = 'AZURE_OPENAI_API_VERSION';
 
+// Jwt
+const jwtSecret = 'JWT_SECRET';
+const jwtExpiresIn = 'JWT_EXPIRES_IN';
+
 export const envVariables = {
   dbHost,
   dbDatabase,
@@ -27,4 +31,6 @@ export const envVariables = {
   azureOpenAIKey,
   azureOpenAIDeployment,
   azureOpenAIApiVersion,
+  jwtSecret,
+  jwtExpiresIn,
 };

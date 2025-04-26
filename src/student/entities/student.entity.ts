@@ -15,6 +15,12 @@ export class Student {
   @Column({ name: 'student_name' })
   studentName: string;
 
+  @Column({ unique: true })
+  email: string;
+
+  @Column()
+  password: string;
+
   @CreateDateColumn({ name: 'create_at', type: 'timestamp' })
   createdAt: Date;
 
