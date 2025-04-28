@@ -30,23 +30,23 @@ export class SubmissionController {
   @ApiBearerAuth()
   @ApiResponse({
     status: 201,
-    description: '에세이 제출 및 평가 결과',
+    description: '에세이 제출 성공',
     schema: {
       example: {
         result: 'ok',
         message: null,
         studentId: 1,
-        studentName: 'John Doe',
+        studentName: 'Jane Doe',
         score: 8,
         feedback: 'Good structure but minor grammatical errors.',
-        highlights: ['misspelled word', 'incorrect tense'],
+        highlights: ['misspelled word', 'wrong tense usage'],
         submitText: 'I want to improve my writing.',
         highlightSubmitText: 'I want to <b>improve</b> my writing.',
         mediaUrl: {
-          video: 'https://....',
-          audio: 'https://....',
+          video: 'https://example.blob.core.windows.net/container/video-1.mp4',
+          audio: 'https://example.blob.core.windows.net/container/audio-1.mp3',
         },
-        apiLatency: 1234,
+        apiLatency: 1432,
       },
     },
   })

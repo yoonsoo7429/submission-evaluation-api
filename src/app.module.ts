@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as Joi from 'joi';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -59,7 +57,6 @@ import { JwtService } from '@nestjs/jwt';
     RevisionModule,
     StatsModule,
   ],
-  controllers: [AppController],
-  providers: [AppService, JwtService],
+  providers: [JwtService],
 })
 export class AppModule {}

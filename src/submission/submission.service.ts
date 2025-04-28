@@ -52,18 +52,13 @@ export class SubmissionService {
       );
 
       // 병렬 처리 (Azure 업로드 + OpenAI 평가)
-      const [audioFilePath, videoUrl, aiResult] = await Promise.all([
-        this.videoProcessorService.extractAudio(croppedVideo),
-        this.azureBlobSerivce.uploadFile(
-          croppedVideo,
-          `video-${submission.submissionId}.mp4`,
-        ),
-        this.openaiService.evaluate(createSubmissionDto.submitText),
-      ]);
+      const { audioFile, videoUrl, audioUrl } = await this.uploadProcessedMedia(
+        croppedVideo,
+        submission.submissionId,
+      );
 
-      const audioUrl = await this.azureBlobSerivce.uploadFile(
-        audioFilePath,
-        `audio-${submission.submissionId}.mp3`,
+      const aiResult = await this.processOpenAIResult(
+        createSubmissionDto.submitText,
       );
 
       // 제출 미디어 저장
@@ -73,7 +68,7 @@ export class SubmissionService {
         videoUrl,
         audioUrl,
         videoFile.originalname,
-        path.basename(audioFilePath),
+        path.basename(audioFile),
       );
 
       // 하이라이트 텍스트 생성
@@ -111,7 +106,7 @@ export class SubmissionService {
       await this.videoProcessorService.deleteTempFiles(
         videoFile.path,
         croppedVideo,
-        audioFilePath,
+        audioFile,
       );
 
       return {
@@ -147,5 +142,27 @@ export class SubmissionService {
     } finally {
       await queryRunner.release();
     }
+  }
+
+  private async uploadProcessedMedia(
+    croppedVideo: string,
+    submissionId: number,
+  ): Promise<{ audioFile: string; videoUrl: string; audioUrl: string }> {
+    const audioFile =
+      await this.videoProcessorService.extractAudio(croppedVideo);
+    const videoUrl = await this.azureBlobSerivce.uploadFile(
+      croppedVideo,
+      `video-${submissionId}.mp4`,
+    );
+    const audioUrl = await this.azureBlobSerivce.uploadFile(
+      audioFile,
+      `audio-${submissionId}.mp3`,
+    );
+    return { audioFile, videoUrl, audioUrl };
+  }
+
+  private async processOpenAIResult(submitText: string) {
+    const aiResult = await this.openaiService.evaluate(submitText);
+    return aiResult;
   }
 }
