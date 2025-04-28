@@ -4,6 +4,7 @@ const dbDatabase = 'DB_DATABASE';
 const dbPort = 'DB_PORT';
 const dbUsername = 'DB_USERNAME';
 const dbPassword = 'DB_PASSWORD';
+const dbSchema = 'DB_SCHEMA';
 
 // Azure Blob
 const azureConnectionString = 'AZURE_CONNECTION_STRING';
@@ -27,6 +28,7 @@ export const envVariables = {
   dbPassword,
   dbPort,
   dbUsername,
+  dbSchema,
   azureConnectionString,
   azureContainer,
   azureOpenAIEndpoint,

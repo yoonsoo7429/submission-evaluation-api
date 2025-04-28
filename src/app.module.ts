@@ -45,6 +45,7 @@ import { JwtService } from '@nestjs/jwt';
         username: configService.get<string>(envVariables.dbUsername),
         password: configService.get<string>(envVariables.dbPassword),
         database: configService.get<string>(envVariables.dbDatabase),
+        schema: configService.get<string>(envVariables.dbSchema),
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
         synchronize: true,
         // synchronize: false,
