@@ -26,6 +26,8 @@ import { JwtService } from '@nestjs/jwt';
         // AZURE_BLOB
         AZURE_CONNECTION_STRING: Joi.string().required(),
         AZURE_CONTAINER: Joi.string().required(),
+        AZURE_ACCOUNT_NAME: Joi.string().required(),
+        AZURE_ACCOUNT_KEY: Joi.string().required(),
         // AZURE_OPENAI
         AZURE_OPENAI_ENDPOINT: Joi.string().uri().required(),
         AZURE_OPENAI_KEY: Joi.string().required(),

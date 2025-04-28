@@ -8,6 +8,8 @@ const dbPassword = 'DB_PASSWORD';
 // Azure Blob
 const azureConnectionString = 'AZURE_CONNECTION_STRING';
 const azureContainer = 'AZURE_CONTAINER';
+const azureAccountName = 'AZURE_ACCOUNT_NAME';
+const azureAccountKey = 'AZURE_ACCOUNT_KEY';
 
 // Azure OpenAI
 const azureOpenAIEndpoint = 'AZURE_OPENAI_ENDPOINT';
@@ -33,4 +35,6 @@ export const envVariables = {
   azureOpenAIApiVersion,
   jwtSecret,
   jwtExpiresIn,
+  azureAccountName,
+  azureAccountKey,
 };

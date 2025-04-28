@@ -9,6 +9,7 @@ import { OpenAIService } from 'src/common/services/openai.service';
 import { generateHighlightText } from 'src/common/utils/highlight.util';
 import { v4 as uuidv4 } from 'uuid';
 import { SubmissionResult } from 'src/common/enum/submission-result.enum';
+import * as path from 'path';
 
 @Injectable()
 export class SubmissionService {
@@ -43,6 +44,7 @@ export class SubmissionService {
     );
 
     const traceId = uuidv4();
+
     try {
       // 영상 전처리
       const croppedVideo = await this.videoProcessorService.cropVideo(
@@ -50,7 +52,7 @@ export class SubmissionService {
       );
 
       // 병렬 처리 (Azure 업로드 + OpenAI 평가)
-      const [audioFile, videoUrl, aiResult] = await Promise.all([
+      const [audioFilePath, videoUrl, aiResult] = await Promise.all([
         this.videoProcessorService.extractAudio(croppedVideo),
         this.azureBlobSerivce.uploadFile(
           croppedVideo,
@@ -60,18 +62,18 @@ export class SubmissionService {
       ]);
 
       const audioUrl = await this.azureBlobSerivce.uploadFile(
-        audioFile,
+        audioFilePath,
         `audio-${submission.submissionId}.mp3`,
       );
 
-      // 제출 미디어 저장장
+      // 제출 미디어 저장
       await this.submissionRepository.createSubmissionMedia(
         queryRunner,
         submission.submissionId,
         videoUrl,
         audioUrl,
         videoFile.originalname,
-        audioFile.split('/').pop()!,
+        path.basename(audioFilePath),
       );
 
       // 하이라이트 텍스트 생성
@@ -109,7 +111,7 @@ export class SubmissionService {
       await this.videoProcessorService.deleteTempFiles(
         videoFile.path,
         croppedVideo,
-        audioFile,
+        audioFilePath,
       );
 
       return {
