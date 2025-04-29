@@ -17,15 +17,6 @@ export class Revision {
   @JoinColumn({ name: 'submission_id' })
   submission: Submission;
 
-  @Column()
-  score: number;
-
-  @Column({ type: 'text' })
-  feedback: string;
-
-  @Column({ type: 'jsonb' })
-  highlights: string[];
-
   @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
   createdAt: Date;
 }
