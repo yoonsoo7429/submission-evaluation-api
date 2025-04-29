@@ -6,7 +6,6 @@ import {
   StorageSharedKeyCredential,
 } from '@azure/storage-blob';
 import { ConfigService } from '@nestjs/config';
-import * as path from 'path';
 import { envVariables } from '../const/env.const';
 
 @Injectable()
