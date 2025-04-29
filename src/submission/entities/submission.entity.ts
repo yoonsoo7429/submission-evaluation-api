@@ -13,6 +13,8 @@ import {
 import { SubmissionMedia } from './submission-media.entity';
 import { SubmissionLog } from './submission-log.entity';
 import { Revision } from 'src/revision/entities/revision.entity';
+import { ComponentType } from 'src/common/enum/component-type.enum';
+import { SubmissionStatus } from 'src/common/enum/submission-status.enum';
 
 @Entity('submissions')
 export class Submission {
@@ -23,8 +25,8 @@ export class Submission {
   @JoinColumn({ name: 'student_id' })
   student: Student;
 
-  @Column({ name: 'component_type' })
-  componentType: string;
+  @Column({ type: 'enum', enum: ComponentType })
+  componentType: ComponentType;
 
   @Column({ name: 'submit_text', type: 'text' })
   submitText: string;
@@ -41,8 +43,12 @@ export class Submission {
   @Column({ name: 'highlight_submit_text', type: 'text', nullable: true })
   highlightSubmitText: string;
 
-  @Column({ default: 'pending' })
-  status: string;
+  @Column({
+    type: 'enum',
+    enum: SubmissionStatus,
+    default: SubmissionStatus.PENDING,
+  })
+  status: SubmissionStatus;
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
   createdAt: Date;
@@ -51,7 +57,7 @@ export class Submission {
   updatedAt: Date;
 
   @OneToOne(() => SubmissionMedia, (media) => media.submission)
-  media: SubmissionMedia;
+  media: SubmissionMedia[];
 
   @OneToMany(() => SubmissionLog, (log) => log.submission)
   logs: SubmissionLog[];

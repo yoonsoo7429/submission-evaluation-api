@@ -36,7 +36,8 @@
 
 ![ERD](./docs/erd.png)
 
-ERD는 dbdiagram.io에서 작성했으며, 실제 테이블 생성 스크립트는 아래의 DDL 또는 TypeORM 마이그레이션으로 구성되어 있습니다.
+- ERD는 dbdiagram.io에서 작성했으며, 실제 테이블 생성 스크립트는 아래의 DDL 또는 TypeORM 마이그레이션으로 구성되어 있습니다.
+- repo docs폴더 내에 있습니다.
 
 ---
 
