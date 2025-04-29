@@ -1,19 +1,18 @@
-import { Submission } from 'src/submission/entities/submission.entity';
 import {
   Entity,
-  Column,
   PrimaryGeneratedColumn,
   ManyToOne,
   JoinColumn,
   CreateDateColumn,
 } from 'typeorm';
+import { Submission } from 'src/submission/entities/submission.entity';
 
 @Entity('revisions')
 export class Revision {
   @PrimaryGeneratedColumn({ name: 'revision_id' })
   revisionId: number;
 
-  @ManyToOne(() => Submission, (submission) => submission.revisions)
+  @ManyToOne(() => Submission)
   @JoinColumn({ name: 'submission_id' })
   submission: Submission;
 

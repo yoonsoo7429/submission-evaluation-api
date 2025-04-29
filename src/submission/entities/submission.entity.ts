@@ -1,20 +1,18 @@
-import { Student } from 'src/student/entities/student.entity';
 import {
-  Column,
-  CreateDateColumn,
   Entity,
-  JoinColumn,
+  Column,
+  PrimaryGeneratedColumn,
   ManyToOne,
   OneToMany,
-  OneToOne,
-  PrimaryGeneratedColumn,
+  CreateDateColumn,
   UpdateDateColumn,
+  JoinColumn,
 } from 'typeorm';
+import { Student } from 'src/student/entities/student.entity';
 import { SubmissionMedia } from './submission-media.entity';
 import { SubmissionLog } from './submission-log.entity';
-import { Revision } from 'src/revision/entities/revision.entity';
-import { ComponentType } from 'src/common/enum/component-type.enum';
 import { SubmissionStatus } from 'src/common/enum/submission-status.enum';
+import { ComponentType } from 'src/common/enum/component-type.enum';
 
 @Entity('submissions')
 export class Submission {
@@ -25,7 +23,7 @@ export class Submission {
   @JoinColumn({ name: 'student_id' })
   student: Student;
 
-  @Column({ type: 'enum', enum: ComponentType })
+  @Column({ name: 'component_type' })
   componentType: ComponentType;
 
   @Column({ name: 'submit_text', type: 'text' })
@@ -37,17 +35,13 @@ export class Submission {
   @Column({ nullable: true, type: 'text' })
   feedback: string;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ nullable: true, type: 'jsonb' })
   highlights: string[];
 
-  @Column({ name: 'highlight_submit_text', type: 'text', nullable: true })
+  @Column({ name: 'highlight_submit_text', nullable: true, type: 'text' })
   highlightSubmitText: string;
 
-  @Column({
-    type: 'enum',
-    enum: SubmissionStatus,
-    default: SubmissionStatus.PENDING,
-  })
+  @Column({ type: 'varchar', default: SubmissionStatus.PENDING })
   status: SubmissionStatus;
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
@@ -56,12 +50,9 @@ export class Submission {
   @UpdateDateColumn({ name: 'updated_at', type: 'timestamp' })
   updatedAt: Date;
 
-  @OneToOne(() => SubmissionMedia, (media) => media.submission)
+  @OneToMany(() => SubmissionMedia, (media) => media.submission)
   media: SubmissionMedia[];
 
   @OneToMany(() => SubmissionLog, (log) => log.submission)
   logs: SubmissionLog[];
-
-  @OneToMany(() => Revision, (revision) => revision.submission)
-  revisions: Revision[];
 }

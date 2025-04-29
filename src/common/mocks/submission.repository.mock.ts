@@ -20,7 +20,6 @@ export const mockSubmission: Submission = {
   updatedAt: new Date(),
   media: [],
   logs: [],
-  revisions: [],
 };
 
 export const mockSubmissionMedia: SubmissionMedia = {

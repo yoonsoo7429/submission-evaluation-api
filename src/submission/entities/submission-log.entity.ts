@@ -18,16 +18,16 @@ export class SubmissionLog {
   @JoinColumn({ name: 'submission_id' })
   submission: Submission;
 
-  @Column({ name: 'trace_id' })
+  @Column({ name: 'trace_id', type: 'uuid' })
   traceId: string;
 
-  @Column()
+  @Column({ nullable: true })
   latency: number;
 
-  @Column({ type: 'enum', enum: SubmissionResult })
+  @Column({ type: 'varchar' })
   result: SubmissionResult;
 
-  @Column({ type: 'text' })
+  @Column({ type: 'text', nullable: true })
   message: string;
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamp' })

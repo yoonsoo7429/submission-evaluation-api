@@ -2,7 +2,7 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  OneToOne,
+  ManyToOne,
   JoinColumn,
   CreateDateColumn,
 } from 'typeorm';
@@ -13,20 +13,20 @@ export class SubmissionMedia {
   @PrimaryGeneratedColumn({ name: 'media_id' })
   mediaId: number;
 
-  @OneToOne(() => Submission, (submission) => submission.media)
+  @ManyToOne(() => Submission, (submission) => submission.media)
   @JoinColumn({ name: 'submission_id' })
   submission: Submission;
 
-  @Column({ name: 'video_url' })
+  @Column({ name: 'video_url', type: 'text' })
   videoUrl: string;
 
-  @Column({ name: 'audio_url' })
+  @Column({ name: 'audio_url', type: 'text' })
   audioUrl: string;
 
-  @Column({ name: 'video_file_name' })
+  @Column({ name: 'video_file_name', nullable: true })
   videoFileName: string;
 
-  @Column({ name: 'audio_file_name' })
+  @Column({ name: 'audio_file_name', nullable: true })
   audioFileName: string;
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
