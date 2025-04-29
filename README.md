@@ -62,13 +62,40 @@ npm install
 - 기본 예시는 .env.example 파일에 제공되어 있습니다.
 - .env.example 파일을 복사해서 .env 파일을 생성한 뒤 내용을 채워주세요.
 
-4. 서버 실행
+4. DB(PostgreSQL) 준비
+
+- 로컬 환경에 PostgreSQL 설치가 필요합니다.
+- 기본 설정은 .env.example에 있는 내용과 같습니다.
+- 로컬 PostgreSQL 설치 방법
+  - macOS: brew install postresql
+  - Ubuntu: sudo apt-get install postgresql
+  - Windows: https://www.postgresql.org/download/ 이용
+- Docker를 사용하는 경우
+
+```bash
+docker run --name submission-postgres -e POSTGRES_PASSWORD=yourpassword -e POSTGRES_DB=submission -p 5432:5432 -d postgres
+```
+
+5. 서버 실행
 
 ```bash
 npm run start:dev
 ```
 
-5. API 문서(Swagger) 접속
+6. 테스트 실행
+
+```bash
+# 유닛 테스트
+npm run test
+
+# 커버리지 포함 테스트
+npm run test:cov
+
+# E2E 통합 테스트
+npm run test:e2e
+```
+
+7. API 문서(Swagger) 접속
 
 ```bash
 http://localhost/swagger
